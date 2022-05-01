@@ -16,14 +16,15 @@ const ListOfStudents = () => {
 
   const onRemoveStudent = (index, event) => {
     event.preventDefault(event);
-    if (index > -1){
-    list.splice(index, 1)
-    let auxlist= [...list]
-    setList(auxlist)
+    if (index > -1) {
+      list.splice(index, 1)
+      let auxlist = [...list]
+      setList(auxlist)
     }
-    
+
   }
 
+  
   const [list, setList] = useState([])
 
   const [name, setName] = useState('');
@@ -39,7 +40,7 @@ const ListOfStudents = () => {
 
   return (
     <div className="center">
-      <h1 className ="centered">Student List</h1>
+      <h1 className="centered">Student List</h1>
       <form>
         <label>Name</label>
         <br></br>
@@ -50,11 +51,21 @@ const ListOfStudents = () => {
         <input onChange={addLastName} type="text" name="lastName" placeholder="Your last name.." />
         <br></br>
         <div className="centered"><button onClick={onAddStudent} className="centeredbutton" >add student</button></div>
-        {list.map((student, index) => <div key={index}>
-          <h2>{student.name}</h2>
-          <h2>{student.lastName}</h2>
-          <button id={index} onClick={e => { onRemoveStudent(index, e) }}>Delete</button>
-        </div>)}
+        <br></br>
+        <table hidden={list.length > 0 ? false : true}>
+          <thead >
+            <tr>
+              <th>Name</th>
+              <th>Lastname</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          {list.map((student, index) => <tbody key={index}>
+              <tr><td>{student.name}</td>
+              <td>{student.lastName}</td>
+              <td><button id={index} onClick={e => { onRemoveStudent(index, e) }}>Delete</button></td></tr>
+            </tbody>)}
+        </table>
       </form>
     </div>
   )
